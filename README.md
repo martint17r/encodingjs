@@ -2,6 +2,7 @@
 A JavaScript Unmarshaler for the Go language
 
 [![Build Status](https://travis-ci.org/martint17r/encodingjs.svg)](https://travis-ci.org/martint17r/encodingjs)
+[![Coverage Status](https://coveralls.io/repos/martint17r/encodingjs/badge.svg)](https://coveralls.io/r/martint17r/encodingjs)
 
 ## Usage
 
