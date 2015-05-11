@@ -9,7 +9,7 @@ import (
 
 const maxInt = int64(^uint(0) >> 1)
 
-// UnmarshalJSVar transfers the contents of d into result
+// Unmarshal transfers the contents of d into result.
 func Unmarshal(d otto.Value, result interface{}) error {
 	rv := reflect.ValueOf(result)
 	return unmarshal(d, rv)
