@@ -182,6 +182,24 @@ func TestInvalidTypes(t *testing.T) {
 	}
 }
 
+func TestStructTags(t *testing.T) {
+	script := `d = new Array(); d['field1'] = "content1"; d.field2="foo"; d`
+	type D struct {
+		Field1 string `js:"field1"`
+		Field2 string `js:"field2"`
+	}
+	wanted := D{"content1", "foo"}
+	got := D{}
+	err := evaluateJS(script, &got)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+	if !reflect.DeepEqual(wanted, got) {
+		t.Errorf("wanted '%+v', got: '%+v'\n", wanted, got)
+	}
+}
+
 func evaluateJS(script string, result interface{}) error {
 	vm := otto.New()
 	jsresult, err := vm.Run(script)

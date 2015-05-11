@@ -67,7 +67,12 @@ func unmarshalStruct(d otto.Value, rv reflect.Value) error {
 		return ErrObjectExpected
 	}
 	for i := 0; i < rt.NumField(); i++ {
-		if dv, err := d.Object().Get(rt.Field(i).Name); err == nil {
+		fname := rt.Field(i).Name
+		tname := rt.Field(i).Tag.Get("js")
+		if tname != "" {
+			fname = tname
+		}
+		if dv, err := d.Object().Get(fname); err == nil {
 			unmarshal(dv, rv.Field(i))
 		} else if err != nil {
 			return err

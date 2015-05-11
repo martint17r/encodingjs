@@ -29,6 +29,4 @@ fmt.Printf("%+v\n", result)
 
 ## Shortcomings
 
-struct tags are currently not supported.
-
 error path from otto is untested - I have not found a way to trigger these.
