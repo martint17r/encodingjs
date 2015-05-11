@@ -17,6 +17,17 @@ func Unmarshal(d otto.Value, result interface{}) error {
 
 func unmarshal(d otto.Value, rv reflect.Value) error {
 	//fmt.Println(d, "<-", rv, rv.Type().Name(), rv.CanSet())
+	if rv.Type().NumMethod() > 0 {
+		if u, ok := rv.Interface().(Unmarshaler); ok {
+			return u.UnmarshalJS(d)
+		}
+	}
+	if rv.CanAddr() && rv.Addr().Type().NumMethod() > 0 {
+		if u, ok := rv.Addr().Interface().(Unmarshaler); ok {
+			return u.UnmarshalJS(d)
+		}
+	}
+
 	switch rv.Kind() {
 	case reflect.Ptr:
 		return unmarshal(d, rv.Elem())
@@ -137,4 +148,9 @@ func unmarshalSlice(d otto.Value, rv reflect.Value) error {
 	}
 	rv.Set(rslice)
 	return nil
+}
+
+// Unmarshaler is the interface implemented by objects that can unmarshal a JS representation of themselves.
+type Unmarshaler interface {
+	UnmarshalJS(d otto.Value) error
 }

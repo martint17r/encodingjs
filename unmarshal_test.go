@@ -57,11 +57,19 @@ func TestUnmarshal(t *testing.T) {
 			want:   struct{ A string }{A: "fubar"},
 		},
 		{
+			script: `var a = new Array(); a['A'] = "bob"; a; `,
+			want:   struct{ A string }{A: "bob"},
+		},
+		{
 			script: `["foo", "bar"];`,
 			want:   []string{"foo", "bar"},
 		},
 		{
 			script: `var a = []; a[0]={}; a[0]['A'] = "fubar"; a.push({A:"bar"}); a; `,
+			want:   []struct{ A string }{{A: "fubar"}, {A: "bar"}},
+		},
+		{
+			script: `var a = []; a[0]=new Array(); a[0]['A'] = "fubar"; a.push({A:"bar"}); a;`,
 			want:   []struct{ A string }{{A: "fubar"}, {A: "bar"}},
 		},
 		{
