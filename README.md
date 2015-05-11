@@ -1,6 +1,7 @@
 # golang-encodingjs
 A JavaScript Unmarshaler for the Go language
 
+[![Build Status](https://travis-ci.org/martint17r/encodingjs.svg)](https://travis-ci.org/martint17r/encodingjs)
 
 ## Usage
 
