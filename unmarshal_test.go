@@ -80,6 +80,14 @@ func TestUnmarshal(t *testing.T) {
 			script: `a={ A:1, B:2, C:3 }; a`,
 			want:   map[string]int{"A": 1, "B": 2, "C": 3},
 		},
+		{
+			script: `a={A: "fubar"}`,
+			want:   struct{ A, B string }{A: "fubar", B: ""},
+		},
+		{
+			script: `a={A: 333}`,
+			want:   struct{ A, B int }{A: 333, B: 0},
+		},
 	}
 
 	for _, test := range validTests {

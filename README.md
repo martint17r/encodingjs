@@ -27,6 +27,12 @@ fmt.Printf("%+v\n", result)
 // Output: {Foo:bar Fubar:bob}
 ```
 
+## Undefined vs. empty values
+
+Except for pointers, it is not possible in go to differentiate between undefined and 
+empty values. Implement the Unmarshaler interface to flag the difference if you need it.
+
+
 ## Shortcomings
 
 error path from otto is untested - I have not found a way to trigger these.

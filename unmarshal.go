@@ -38,7 +38,9 @@ func unmarshal(d otto.Value, rv reflect.Value) error {
 	case reflect.Map:
 		return unmarshalMap(d, rv)
 	case reflect.String:
-		rv.SetString(d.String())
+		if !d.IsUndefined() {
+			rv.SetString(d.String())
+		}
 	case reflect.Int:
 		if !d.IsNumber() {
 			return &InvalidValueError{rv.Type().String(), d}
